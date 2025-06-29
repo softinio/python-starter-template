@@ -43,7 +43,7 @@ This template provides a complete development environment for AI/ML applications
    - All development tools (uv, ruff, pyrefly, etc.)
    - Pre-commit hooks
 
-#### Option 2: Without Nix (You already have python)
+#### Option 2: Without Nix (You already have Python)
 
 1. Ensure Python 3.13+ is installed
 2. Install uv:
@@ -58,7 +58,7 @@ This template provides a complete development environment for AI/ML applications
 #### Option 3: Using uv
 
 1. [Install uv](https://docs.astral.sh/uv/getting-started/installation/)
-2. Install python using uv  :
+2. Install Python using uv:
    ```bash
    uv python install 3.13
    ```
