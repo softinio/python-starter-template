@@ -1,0 +1,113 @@
+[project]
+name = "pai"
+version = "0.1.0"
+description = "Python AI centric starter template by softinio.com"
+readme = "README.md"
+authors = [
+    { name = "Salar Rahmanian", email = "code@softinio.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "anthropic>=0.55.0",
+    "httpx>=0.28.1",
+    "huggingface-hub>=0.33.1",
+    "mcp[cli]>=1.10.1",
+    "openai>=1.93.0",
+    "pydantic>=2.11.7",
+    "pydantic-settings>=2.10.1",
+    "rich>=14.0.0",
+    "structlog>=25.4.0",
+    "tenacity>=9.1.2",
+]
+
+[dependency-groups]
+dev = [
+    "basedpyright>=1.29.4",
+    "coverage>=7.9.1",
+    "debugpy>=1.8.14",
+    "pre-commit>=4.2.0",
+    "pytest>=8.4.1",
+    "pytest-asyncio>=1.0.0",
+    "pytest-cov>=6.2.1",
+    "pytest-dotenv>=0.5.2",
+    "pytest-mock>=3.14.1",
+    "pytest-sugar>=1.0.0",
+    "ruff>=0.12.1",
+]
+
+[project.scripts]
+pai = "pai.main:main"
+
+[tool.pyrefly]
+project_includes = ["**/*"]
+project_excludes = [
+    "**/.[!/.]*",
+    "**/*venv/**/*",
+]
+python_interpreter = ".venv/bin/python3"
+python_version = "3.13"
+
+[tool.ruff]
+line-length = 120
+output-format = "grouped"
+target-version = "py313"
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.ruff.lint]
+select = [
+  # isort
+  "I",
+  # bugbear rules
+  "B",
+  # remove unused imports
+  "F401",
+  # bare except statements
+  "E722",
+  # unused arguments
+  "ARG",
+  # print statements
+  "T201",
+  "T203",
+  # misuse of typing.TYPE_CHECKING
+  "TC004",
+  # import rules
+  "TID251",
+]
+ignore = [
+  # mutable defaults
+  "B006",
+]
+unfixable = [
+  # disable auto fix for print statements
+  "T201",
+  "T203",
+]
+
+[tool.ruff.lint.flake8-tidy-imports.banned-api]
+"functools.lru_cache".msg = "This function does not retain type information for the wrapped function's arguments; The `lru_cache` function from `_utils` should be used instead"
+
+[tool.ruff.lint.isort]
+length-sort = true
+length-sort-straight = true
+combine-as-imports = true
+extra-standard-library = ["typing_extensions"]
+known-first-party = ["tests"]
+
+[tool.ruff.lint.per-file-ignores]
+"bin/**.py" = ["T201", "T203"]
+"scripts/**.py" = ["T201", "T203"]
+"tests/**.py" = ["T201", "T203"]
+"examples/**.py" = ["T201", "T203"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = "."
+env_files = [".env", ".test.env", ".deploy.env"]
+python_files = ["test_*.py", "fixtures.py"]
+asyncio_default_fixture_loop_scope = "function"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

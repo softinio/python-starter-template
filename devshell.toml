@@ -1,0 +1,26 @@
+# https://numtide.github.io/devshell
+# https://numtide.github.io/devshell/getting_started.html
+[[commands]]
+package = "python313"
+
+[devshell]
+packages = [
+  "pyrefly",
+  "uv"
+]
+
+[[commands]]
+name = "runLint"
+category = "development"
+help = "Run the linter and formatter"
+command = """\
+  uv run ruff format src && uv run ruff check --fix src && pyrefly check
+"""
+
+[[commands]]
+name = "runTests"
+category = "development"
+help = "Run the tests"
+command = """\
+  uv run pytest --cov=pai --cov-report=term-missing --cov-report=html
+"""
