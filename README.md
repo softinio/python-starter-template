@@ -1,3 +1,5 @@
+[![CI](https://github.com/softinio/python-starter-template/actions/workflows/ci.yml/badge.svg)](https://github.com/softinio/python-starter-template/actions/workflows/ci.yml)
+
 # Python AI Starter Template
 
 A modern GitHub template for starting AI-centric Python projects with batteries included.
@@ -43,12 +45,24 @@ This template provides a complete development environment for AI/ML applications
    - All development tools (uv, ruff, pyrefly, etc.)
    - Pre-commit hooks
 
-#### Option 2: Without Nix
+#### Option 2: Without Nix (You already have Python)
 
 1. Ensure Python 3.13+ is installed
 2. Install uv:
    ```bash
    pip install uv
+   ```
+3. Install dependencies:
+   ```bash
+   uv sync
+   ```
+
+#### Option 3: Using uv
+
+1. [Install uv](https://docs.astral.sh/uv/getting-started/installation/)
+2. Install Python using uv:
+   ```bash
+   uv python install 3.13
    ```
 3. Install dependencies:
    ```bash
