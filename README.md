@@ -1,3 +1,5 @@
+[![CI](https://github.com/softinio/python-starter-template/actions/workflows/ci.yml/badge.svg)](https://github.com/softinio/python-starter-template/actions/workflows/ci.yml)
+
 # Python AI Starter Template
 
 A modern GitHub template for starting AI-centric Python projects with batteries included.
