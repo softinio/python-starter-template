@@ -3,11 +3,24 @@ repos:
     rev: main
     hooks:
       - id: pyrefly-typecheck
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.9.9
+  - repo: https://github.com/psf/black
+    rev: 25.1.0
     hooks:
-      - id: ruff
-        types_or: [python, pyi, jupyter]
-        args: [ --fix ]
-      - id: ruff-format
-        types_or: [python, pyi, jupyter]
+      - id: black
+        types_or: [python, pyi]
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        types_or: [python, pyi]
+  - repo: https://github.com/PyCQA/flake8
+    rev: 7.2.0
+    hooks:
+      - id: flake8
+        types_or: [python, pyi]
+        additional_dependencies:
+          - flake8-bugbear
+          - flake8-unused-arguments
+          - flake8-print
+          - flake8-type-checking
+          - flake8-pyproject

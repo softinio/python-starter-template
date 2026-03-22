@@ -20,23 +20,35 @@ dependencies = [
     "tenacity>=9.1.2",
 ]
 
-[dependency-groups]
-dev = [
-    "coverage>=7.9.1",
-    "debugpy>=1.8.14",
-    "pre-commit>=4.2.0",
-    "pyrefly>=0.21.0",
-    "pytest>=8.4.1",
-    "pytest-asyncio>=1.0.0",
-    "pytest-cov>=6.2.1",
-    "pytest-dotenv>=0.5.2",
-    "pytest-mock>=3.14.1",
-    "pytest-sugar>=1.0.0",
-    "ruff>=0.12.1",
-]
-
 [project.scripts]
 pai = "pai.main:main"
+
+[tool.poetry]
+packages = [{include = "pai", from = "src"}]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+coverage = ">=7.9.1"
+debugpy = ">=1.8.14"
+pre-commit = ">=4.2.0"
+pyrefly = ">=0.21.0"
+pytest = ">=8.4.1"
+pytest-asyncio = ">=1.0.0"
+pytest-cov = ">=6.2.1"
+pytest-dotenv = ">=0.5.2"
+pytest-mock = ">=3.14.1"
+pytest-sugar = ">=1.0.0"
+black = ">=24.0.0"
+isort = ">=5.13.0"
+flake8 = ">=7.0.0"
+flake8-bugbear = ">=24.0.0"
+flake8-unused-arguments = ">=0.0.13"
+flake8-print = ">=5.0.0"
+flake8-type-checking = ">=2.9.0"
+flake8-pyproject = ">=1.2.0"
 
 [tool.pyrefly]
 project_includes = ["**/*"]
@@ -47,59 +59,38 @@ project_excludes = [
 python_interpreter = ".venv/bin/python3"
 python_version = "3.13"
 
-[tool.ruff]
+[tool.black]
 line-length = 120
-output-format = "grouped"
-target-version = "py313"
+target-version = ["py313"]
 
-[tool.ruff.format]
-docstring-code-format = true
+[tool.isort]
+profile = "black"
+line_length = 120
+length_sort = true
+length_sort_straight = true
+combine_as_imports = true
+extra_standard_library = ["typing_extensions"]
+known_first_party = ["tests"]
 
-[tool.ruff.lint]
-select = [
-  # isort
-  "I",
-  # bugbear rules
-  "B",
-  # remove unused imports
-  "F401",
-  # bare except statements
-  "E722",
-  # unused arguments
-  "ARG",
-  # print statements
-  "T201",
-  "T203",
-  # misuse of typing.TYPE_CHECKING
-  "TC004",
-  # import rules
-  "TID251",
+[tool.flake8]
+max-line-length = 120
+extend-ignore = [
+    "E203",   # whitespace before ':' — black compatibility
+    "E402",   # module level import not at top — not in original ruleset
+    "E501",   # line too long — black handles line length; string literals cannot be wrapped
+    "W503",   # line break before binary operator — black compatibility
+    "B006",   # mutable defaults
+    "TC001",  # move app import into TYPE_CHECKING block — not in original ruleset
+    "TC002",  # move third-party import into TYPE_CHECKING block — not in original ruleset
+    "TC003",  # move stdlib import into TYPE_CHECKING block — not in original ruleset
+    "U101",   # unused argument prefixed with _ — intentionally unused by convention
 ]
-ignore = [
-  # mutable defaults
-  "B006",
+per-file-ignores = [
+    "bin/*.py:T201,T203",
+    "scripts/*.py:T201,T203",
+    "tests/*.py:T201,T203",
+    "examples/*.py:T201,T203",
 ]
-unfixable = [
-  # disable auto fix for print statements
-  "T201",
-  "T203",
-]
-
-[tool.ruff.lint.flake8-tidy-imports.banned-api]
-"functools.lru_cache".msg = "This function does not retain type information for the wrapped function's arguments; The `lru_cache` function from `_utils` should be used instead"
-
-[tool.ruff.lint.isort]
-length-sort = true
-length-sort-straight = true
-combine-as-imports = true
-extra-standard-library = ["typing_extensions"]
-known-first-party = ["tests"]
-
-[tool.ruff.lint.per-file-ignores]
-"bin/**.py" = ["T201", "T203"]
-"scripts/**.py" = ["T201", "T203"]
-"tests/**.py" = ["T201", "T203"]
-"examples/**.py" = ["T201", "T203"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -108,6 +99,3 @@ env_files = [".env", ".test.env", ".deploy.env"]
 python_files = ["test_*.py", "fixtures.py"]
 asyncio_default_fixture_loop_scope = "function"
 
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"

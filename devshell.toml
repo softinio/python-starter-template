@@ -5,8 +5,7 @@ package = "python313"
 
 [devshell]
 packages = [
-  "pyrefly",
-  "uv"
+  "poetry"
 ]
 
 [[commands]]
@@ -14,7 +13,7 @@ name = "runLint"
 category = "development"
 help = "Run the linter and formatter"
 command = """\
-  uv run ruff format src && uv run ruff check --fix src && pyrefly check
+  poetry run black src && poetry run isort src && poetry run flake8 src && poetry run pyrefly check
 """
 
 [[commands]]
@@ -22,5 +21,5 @@ name = "runTests"
 category = "development"
 help = "Run the tests"
 command = """\
-  uv run pytest --cov=pai --cov-report=term-missing --cov-report=html
+  poetry run pytest --cov=pai --cov-report=term-missing --cov-report=html
 """
