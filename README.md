@@ -42,8 +42,12 @@ This template provides a complete development environment for AI/ML applications
 
 3. The Nix environment will automatically provide:
    - Python 3.13
-   - All development tools (poetry, black, isort, flake8, pyrefly, etc.)
-   - Pre-commit hooks
+   - Poetry
+
+4. Install all development tools (black, isort, flake8, pyrefly, pre-commit, etc.) via Poetry:
+   ```bash
+   poetry install
+   ```
 
 #### Option 2: Without Nix (You already have Python)
 
@@ -90,7 +94,7 @@ poetry run pyrefly check    # Type checking
 
 #### Pre-commit Hooks
 ```bash
-pre-commit run --all-files
+poetry run pre-commit run --all-files
 ```
 
 ## Configuration
@@ -134,9 +138,9 @@ poetry add --group dev <package-name>
 
 ## Type Checking
 
-This template uses Pyrefly (and Basedpyright) for type checking. Run type checks with:
+This template uses Pyrefly for type checking. Run type checks with:
 ```bash
-pyrefly check
+poetry run pyrefly check
 ```
 
 ## Tips for Development
