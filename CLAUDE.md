@@ -4,13 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Development Commands
 
-This project uses `uv` (a fast Python package manager) and Nix for development. Here are the essential commands:
+This project uses `poetry` for package management and Nix for development. Here are the essential commands:
 
-**Note**: Always run `uv sync` first to ensure dependencies are installed.
+**Note**: Always run `poetry install` first to ensure dependencies are installed.
 
 ### Running the Application
 ```bash
-uv run pai
+poetry run pai
 ```
 
 ### Testing
@@ -18,10 +18,10 @@ uv run pai
 # Run all tests with coverage
 runTests  # (Nix command)
 # or
-uv run pytest --cov=pai --cov-report=term-missing --cov-report=html
+poetry run pytest --cov=pai --cov-report=term-missing --cov-report=html
 
 # Run a specific test
-uv run pytest tests/pai/test_main.py::test_specific_function
+poetry run pytest tests/pai/test_main.py::test_specific_function
 ```
 
 ### Linting and Formatting
@@ -30,18 +30,20 @@ uv run pytest tests/pai/test_main.py::test_specific_function
 runLint
 
 # Or individually:
-uv run ruff format src          # Format code
-uv run ruff check --fix src     # Lint and auto-fix
-pyrefly check                   # Type checking
+poetry run black src        # Format code
+poetry run isort src        # Sort imports
+poetry run flake8 src       # Lint
+poetry run pyrefly check    # Type checking
 
 # Run pre-commit hooks
-pre-commit run --all-files
+poetry run pre-commit run --all-files
 ```
 
 ### Dependency Management
 ```bash
-uv sync                         # Install all dependencies
-uv pip install -e .            # Install package in editable mode
+poetry install              # Install all dependencies
+poetry add <package>        # Add a production dependency
+poetry add --group dev <package>  # Add a development dependency
 ```
 
 ### CI/CD
@@ -56,12 +58,12 @@ The project includes GitHub Actions workflow that automatically:
 This is an AI-centric Python application with a clean, modular structure:
 
 1. **Main Package**: `src/pai/` - The core application package ("Python AI")
-   - Entry point: `src/pai/main.py:main` (accessed via `uv run pai`)
+   - Entry point: `src/pai/main.py:main` (accessed via `poetry run pai`)
    - The main function logs initialization and returns a boolean status
    
 2. **Configuration**: Modern Python project using:
    - `pyproject.toml` for all project metadata and dependencies
-   - `uv.lock` for reproducible dependency management
+   - `poetry.lock` for reproducible dependency management
    - Nix flakes for development environment consistency
 
 3. **Key Architectural Patterns**:
@@ -85,13 +87,13 @@ nix develop
 
 The environment includes:
 - Python 3.13
-- All development tools (ruff, pytest, pyrefly, etc.)
+- All development tools (black, isort, flake8, pytest, pyrefly, etc.)
 - Pre-configured pre-commit hooks
 - Environment file support (`.env`, `.test.env`, `.deploy.env`)
 
 ## Code Quality Standards
 
-- **Line Length**: 120 characters (Ruff configuration)
-- **Type Checking**: Both Basedpyright and Pyrefly must pass
+- **Line Length**: 120 characters (black/flake8 configuration)
+- **Type Checking**: Pyrefly must pass
 - **Test Coverage**: Maintain test coverage with parallel structure in `tests/`
 - **Pre-commit**: All hooks must pass before commits

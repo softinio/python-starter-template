@@ -20,7 +20,7 @@ jobs:
         github_access_token: ${{ secrets.GITHUB_TOKEN }}
         
     - name: Install dependencies
-      run: nix develop --command uv sync
+      run: nix develop --command poetry install
         
     - name: Run linting
       run: nix develop --command runLint
