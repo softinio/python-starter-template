@@ -23,8 +23,12 @@
             overlays = [ devshell.overlays.default ];
           };
         in
+        let
+          poetryWithPlugins = pkgs.poetry.withPlugins (ps: [ ps.poetry-plugin-up ]);
+        in
         pkgs.devshell.mkShell {
           imports = [ (pkgs.devshell.importTOML ./devshell.toml) ];
+          packages = [ pkgs.python313 poetryWithPlugins ];
         };
     });
 }

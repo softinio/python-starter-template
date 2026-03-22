@@ -1,26 +1,24 @@
 repos:
-  - repo: https://github.com/facebook/pyrefly
-    rev: main
+  - repo: local
     hooks:
-      - id: pyrefly-typecheck
-  - repo: https://github.com/psf/black
-    rev: 25.1.0
-    hooks:
+      - id: pyrefly
+        name: pyrefly
+        entry: poetry run pyrefly check
+        language: system
+        types_or: [python, pyi]
+        pass_filenames: false
       - id: black
+        name: black
+        entry: poetry run black
+        language: system
         types_or: [python, pyi]
-  - repo: https://github.com/PyCQA/isort
-    rev: 5.13.2
-    hooks:
       - id: isort
+        name: isort
+        entry: poetry run isort
+        language: system
         types_or: [python, pyi]
-  - repo: https://github.com/PyCQA/flake8
-    rev: 7.2.0
-    hooks:
       - id: flake8
+        name: flake8
+        entry: poetry run flake8
+        language: system
         types_or: [python, pyi]
-        additional_dependencies:
-          - flake8-bugbear
-          - flake8-unused-arguments
-          - flake8-print
-          - flake8-type-checking
-          - flake8-pyproject

@@ -70,7 +70,7 @@ This is an AI-centric Python application with a clean, modular structure:
    - Pydantic for data validation and settings management
    - Structured logging with structlog
    - Async-first design with httpx for HTTP operations
-   - Type safety enforced through Basedpyright and Pyrefly
+   - Type safety enforced through Pyrefly
 
 4. **AI/ML Integration Points**:
    - Anthropic Claude API integration
@@ -85,11 +85,11 @@ This project uses Nix for reproducible development environments. Enter the dev s
 nix develop
 ```
 
-The environment includes:
+The Nix environment provides:
 - Python 3.13
-- All development tools (black, isort, flake8, pytest, pyrefly, etc.)
-- Pre-configured pre-commit hooks
-- Environment file support (`.env`, `.test.env`, `.deploy.env`)
+- Poetry
+
+Run `poetry install` after entering the shell to install all development tools (black, isort, flake8, pytest, pyrefly, pre-commit, etc.).
 
 ## Code Quality Standards
 

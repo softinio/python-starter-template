@@ -1,12 +1,7 @@
 # https://numtide.github.io/devshell
 # https://numtide.github.io/devshell/getting_started.html
-[[commands]]
-package = "python313"
-
 [devshell]
-packages = [
-  "poetry"
-]
+packages = []
 
 [[commands]]
 name = "runLint"
